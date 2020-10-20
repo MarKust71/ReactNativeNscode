@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 export const App = () => {
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Still works!</Text>
+            <Text style={styles.text}>Still works, again!</Text>
         </View>
     );
 };

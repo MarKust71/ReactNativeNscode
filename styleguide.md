@@ -105,18 +105,18 @@ enum Day {
 
 ```typescript
 // good
-import { CodeBlock } from "./ui/codeBlock/CodeBlock";
+import { CodeBlock } from "./src/ui/codeBlock/CodeBlock";
 // bad
-import { CodeBlock } from "./app/codeBlock/CodeBlock";
+import { CodeBlock } from "./src/app/codeBlock/CodeBlock";
 ```
 
 - Feature specific components, like a page should be placed inside the `app` directory
 
 ```typescript
 // bad
-import { About } from "./ui/about/About";
+import { About } from "./src/ui/about/About";
 // good
-import { About } from "./app/about/About";
+import { About } from "./src/app/about/About";
 ```
 
 ## Export & Imports
