@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import firebase from 'firebase';
 
-import { Button, Header } from './components/common';
+import { Button, Card, CardSection, Header } from './components/common';
 import { LoginForm } from './components/authentication/LoginForm';
 
 const styles = StyleSheet.create({
@@ -41,7 +41,13 @@ export const App = () => {
 
     const renderContent = () => {
         if (loggedIn) {
-            return <Button onPress={() => firebase.auth().signOut()}>Log Out</Button>;
+            return (
+                <Card>
+                    <CardSection>
+                        <Button onPress={() => firebase.auth().signOut()}>Log Out</Button>
+                    </CardSection>
+                </Card>
+            );
         }
         return <LoginForm />;
     };
