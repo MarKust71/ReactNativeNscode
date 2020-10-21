@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import firebase from 'firebase';
 import { Text, StyleSheet } from 'react-native';
 
 import { Button, Card, CardSection, Input, Spinner } from '../common';
+import { AuthContext } from '../../context';
 
 const style = StyleSheet.create({
     errorMessage: {
@@ -18,10 +19,13 @@ export const LoginForm = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(false);
 
+    const { setUserToken } = useContext(AuthContext);
+
     const onLoginSuccess = (result: void | firebase.auth.UserCredential) => {
         setLoading(false);
         setEmail('');
         setPassword('');
+        setUserToken('asdf');
         console.log('Result:', result);
     };
 

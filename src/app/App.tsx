@@ -1,18 +1,40 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import firebase from 'firebase';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { AuthContext } from './context';
-import { LogIn } from './components/navigation/LogIn';
+import { Splash } from './components/common';
+import { LoginForm } from './components/authentication/LoginForm';
+import { AuthStackParamList, Welcome } from './components/navigation/Welcome';
+import { Home } from './components/navigation/Home';
 
 export const App = () => {
     // const [loggedIn, setLoggedIn] = useState(false);
-    // const authContext = useMemo(() => {
-    //     logIn: () => console.log('logIn from context');
-    // }, []);
-    const authContext = useContext(AuthContext);
-    console.log('authContext:', authContext);
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [userToken, setUserToken] = React.useState('');
+
+    const authContext = React.useMemo(() => {
+        return {
+            signIn: () => {
+                setIsLoading(false);
+                setUserToken('asdf');
+            },
+            signUp: () => {
+                setIsLoading(false);
+                setUserToken('asdf');
+            },
+            signOut: () => {
+                setIsLoading(false);
+                setUserToken('');
+            },
+            setUserToken: (token: string) => {
+                setUserToken(token);
+            },
+            userToken: '',
+        };
+    }, []);
 
     useEffect(() => {
         if (!firebase.apps.length) {
@@ -28,26 +50,44 @@ export const App = () => {
             firebase.auth().onAuthStateChanged((user) => {
                 console.log('onAuthStateChanged fired...');
                 if (user) {
-                    // setLoggedIn(true);
+                    setUserToken('asdf');
                 } else {
-                    // setLoggedIn(false);
+                    setUserToken('');
                 }
             });
             console.log(`Firebase App ${firebaseApp.name} created`);
-        } else {
-            console.log('Firebase App probably created before...', firebase.apps);
+            // } else {
+            //     console.log('Firebase App probably created before...', firebase.apps);
         }
     }, []);
 
-    const AuthStack = createStackNavigator();
+    const AuthStack = createStackNavigator<AuthStackParamList>();
+    const Tabs = createBottomTabNavigator();
+
+    if (isLoading) {
+        return <Splash />;
+    }
 
     return (
         <AuthContext.Provider value={authContext}>
-            <NavigationContainer>
-                <AuthStack.Navigator>
-                    <AuthStack.Screen name="Log In" component={LogIn} />
-                </AuthStack.Navigator>
-            </NavigationContainer>
+            {userToken ? (
+                <NavigationContainer>
+                    <Tabs.Navigator>
+                        <Tabs.Screen name="Home" component={Home} />
+                    </Tabs.Navigator>
+                </NavigationContainer>
+            ) : (
+                <NavigationContainer>
+                    <AuthStack.Navigator>
+                        <AuthStack.Screen
+                            name="Welcome"
+                            component={Welcome}
+                            options={{ headerTitleStyle: { alignSelf: 'center' } }}
+                        />
+                        <AuthStack.Screen name="LoginForm" component={LoginForm} options={{ title: 'Log In' }} />
+                    </AuthStack.Navigator>
+                </NavigationContainer>
+            )}
         </AuthContext.Provider>
     );
 };
