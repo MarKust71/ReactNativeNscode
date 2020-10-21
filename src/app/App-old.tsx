@@ -1,18 +1,18 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 import firebase from 'firebase';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 
-import { AuthContext } from './context';
-import { LogIn } from './components/navigation/LogIn';
+import { Button, Card, CardSection, Header } from './components/common';
+import { LoginForm } from './components/authentication/LoginForm';
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+});
 
 export const App = () => {
-    // const [loggedIn, setLoggedIn] = useState(false);
-    // const authContext = useMemo(() => {
-    //     logIn: () => console.log('logIn from context');
-    // }, []);
-    const authContext = useContext(AuthContext);
-    console.log('authContext:', authContext);
+    const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
         if (!firebase.apps.length) {
@@ -28,9 +28,9 @@ export const App = () => {
             firebase.auth().onAuthStateChanged((user) => {
                 console.log('onAuthStateChanged fired...');
                 if (user) {
-                    // setLoggedIn(true);
+                    setLoggedIn(true);
                 } else {
-                    // setLoggedIn(false);
+                    setLoggedIn(false);
                 }
             });
             console.log(`Firebase App ${firebaseApp.name} created`);
@@ -39,15 +39,23 @@ export const App = () => {
         }
     }, []);
 
-    const AuthStack = createStackNavigator();
+    const renderContent = () => {
+        if (loggedIn) {
+            return (
+                <Card>
+                    <CardSection>
+                        <Button onPress={() => firebase.auth().signOut()}>Log Out</Button>
+                    </CardSection>
+                </Card>
+            );
+        }
+        return <LoginForm />;
+    };
 
     return (
-        <AuthContext.Provider value={authContext}>
-            <NavigationContainer>
-                <AuthStack.Navigator>
-                    <AuthStack.Screen name="Log In" component={LogIn} />
-                </AuthStack.Navigator>
-            </NavigationContainer>
-        </AuthContext.Provider>
+        <View style={styles.container}>
+            <Header headerText="Authentication" />
+            {renderContent()}
+        </View>
     );
 };
