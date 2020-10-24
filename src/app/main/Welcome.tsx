@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Text } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { ScreenContainer } from '../common';
+import { ScreenContainer } from '../../ui/common';
 // import { AuthContext } from '../../context';
 
 export type AuthStackParamList = {

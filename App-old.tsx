@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import firebase from 'firebase';
 
-import { Button, Card, CardSection, Header } from './components/common';
-import { LoginForm } from './components/authentication/LoginForm';
+import { LoginForm } from './src/app/authentication/LoginForm';
+import { Button, Card, CardSection, Header } from './src/ui/common';
 
 const styles = StyleSheet.create({
     container: {

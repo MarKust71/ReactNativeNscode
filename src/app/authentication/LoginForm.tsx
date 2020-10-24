@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react';
 import firebase from 'firebase';
 import { Text, StyleSheet } from 'react-native';
 
-import { Button, Card, CardSection, Input, Spinner } from '../common';
-import { AuthContext } from '../../context';
+import { Button, Card, CardSection, Input, Spinner } from '../../ui/common';
+import { AuthContext } from '../context';
 
 const style = StyleSheet.create({
     errorMessage: {

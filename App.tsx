@@ -4,11 +4,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { AuthContext } from './context';
-import { Splash } from './components/common';
-import { LoginForm } from './components/authentication/LoginForm';
-import { AuthStackParamList, Welcome } from './components/navigation/Welcome';
-import { Home } from './components/navigation/Home';
+import { Home } from './src/app/main/Home';
+import { AuthStackParamList, Welcome } from './src/app/main/Welcome';
+import { Splash } from './src/ui/common';
+import { AuthContext } from './src/app/context';
+import { LoginForm } from './src/app/authentication/LoginForm';
 
 export const App = () => {
     // const [loggedIn, setLoggedIn] = useState(false);
@@ -18,10 +18,6 @@ export const App = () => {
     const authContext = React.useMemo(() => {
         return {
             signIn: () => {
-                setIsLoading(false);
-                setUserToken('asdf');
-            },
-            signUp: () => {
                 setIsLoading(false);
                 setUserToken('asdf');
             },

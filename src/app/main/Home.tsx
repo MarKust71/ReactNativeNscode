@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Button, Text } from 'react-native';
 
-import { ScreenContainer } from '../common';
-import { AuthContext } from '../../context';
+import { ScreenContainer } from '../../ui/common';
+import { AuthContext } from '../context';
 
 export const Home = () => {
     const { setUserToken } = useContext(AuthContext);
