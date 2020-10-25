@@ -26,7 +26,7 @@ interface Props {
     onPress: () => void;
     children: any;
 }
-export const Button = ({ onPress, children }: Props) => {
+export const CustomButton = ({ onPress, children }: Props) => {
     const { buttonStyle, textStyle } = styles;
 
     return (

@@ -1,5 +1,6 @@
 import React from 'react';
-import { ActivityIndicator, ActivityIndicatorProps, View } from 'react-native';
+import { ActivityIndicatorProps, View } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 
 type Props = ActivityIndicatorProps;
 

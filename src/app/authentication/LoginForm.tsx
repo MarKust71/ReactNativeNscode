@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import firebase from 'firebase';
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, View } from 'react-native';
+import { Button, TextInput } from 'react-native-paper';
 
-import { Button, Card, CardSection, Input, Spinner } from '../../ui/common';
-import { AuthContext } from '../context';
+import { Spinner } from '../../ui/common';
 
 const style = StyleSheet.create({
     errorMessage: {
@@ -11,22 +11,32 @@ const style = StyleSheet.create({
         alignSelf: 'center',
         color: 'red',
     },
+    textInput: {
+        marginLeft: 5,
+        marginRight: 5,
+    },
+    button: {
+        marginLeft: 5,
+        marginRight: 5,
+    },
 });
 
-export const LoginForm = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+type Props = {
+    name?: string;
+};
+
+export const LoginForm = ({ name }: Props) => {
+    console.log(name);
+
+    const [email, setEmail] = useState('test@test.pl');
+    const [password, setPassword] = useState('testtest');
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const { setUserToken } = useContext(AuthContext);
-
-    const onLoginSuccess = (result: void | firebase.auth.UserCredential) => {
+    const onLoginSuccess = () => {
         setLoading(false);
         setEmail('');
         setPassword('');
-        setUserToken('asdf');
-        console.log('Result:', result);
     };
 
     const onLoginFail = (reason: any) => {
@@ -37,11 +47,12 @@ export const LoginForm = () => {
 
     const handlePress = () => {
         setLoading(true);
+        setErrorMessage('');
         firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
-            .then((result) => {
-                onLoginSuccess(result);
+            .then(() => {
+                onLoginSuccess();
             })
             .catch((reason) => {
                 onLoginFail(reason);
@@ -52,37 +63,38 @@ export const LoginForm = () => {
         if (loading) {
             return <Spinner size={'small'} />;
         }
-        return <Button onPress={handlePress}>Log In</Button>;
+        return (
+            <Button mode="outlined" onPress={handlePress} style={style.button}>
+                Log In
+            </Button>
+        );
     };
 
     return (
-        <Card>
-            <CardSection>
-                <Input
-                    placeholder="email address"
-                    secureTextEntry={false}
-                    label="E-mail:"
-                    value={email}
-                    onChangeText={(value) => {
-                        setErrorMessage('');
-                        setEmail(value);
-                    }}
-                />
-            </CardSection>
-            <CardSection>
-                <Input
-                    placeholder="password"
-                    secureTextEntry={true}
-                    label="Password:"
-                    value={password}
-                    onChangeText={(value) => {
-                        setErrorMessage('');
-                        setPassword(value);
-                    }}
-                />
-            </CardSection>
+        <>
+            <TextInput
+                style={style.textInput}
+                mode="outlined"
+                label="E-mail"
+                value={email}
+                onChangeText={(value) => {
+                    setErrorMessage('');
+                    setEmail(value);
+                }}
+            />
+            <TextInput
+                style={style.textInput}
+                mode="outlined"
+                label="Password"
+                value={password}
+                secureTextEntry={true}
+                onChangeText={(value) => {
+                    setErrorMessage('');
+                    setPassword(value);
+                }}
+            />
             <Text style={style.errorMessage}>{errorMessage}</Text>
-            <CardSection>{renderButton()}</CardSection>
-        </Card>
+            <View>{renderButton()}</View>
+        </>
     );
 };

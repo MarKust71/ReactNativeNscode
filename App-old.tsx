@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import firebase from 'firebase';
 
 import { LoginForm } from './src/app/authentication/LoginForm';
-import { Button, Card, CardSection, Header } from './src/ui/common';
+import { CustomButton, CardContainer, CardSection, Header } from './src/ui/common';
 
 const styles = StyleSheet.create({
     container: {
@@ -42,11 +42,11 @@ export const App = () => {
     const renderContent = () => {
         if (loggedIn) {
             return (
-                <Card>
+                <CardContainer>
                     <CardSection>
-                        <Button onPress={() => firebase.auth().signOut()}>Log Out</Button>
+                        <CustomButton onPress={() => firebase.auth().signOut()}>Log Out</CustomButton>
                     </CardSection>
-                </Card>
+                </CardContainer>
             );
         }
         return <LoginForm />;

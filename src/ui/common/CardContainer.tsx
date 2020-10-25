@@ -22,6 +22,6 @@ interface Props {
     children: ReactNode;
 }
 
-export const Card = (props: Props) => {
+export const CardContainer = (props: Props) => {
     return <View style={styles.containerStyle}>{props.children}</View>;
 };

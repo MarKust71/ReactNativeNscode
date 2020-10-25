@@ -1,62 +1,36 @@
 {
-    "compilerOptions": {
-        "noEmit": true,
-        "lib": [
-            "dom",
-            "esnext"
-        ],
-        "jsx": "react-native",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "allowSyntheticDefaultImports": true,
-        "skipLibCheck": true,
-        "strict": true,
-        "noImplicitAny": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
-        "strictPropertyInitialization": true,
-        "noImplicitThis": true,
-        "alwaysStrict": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
-        "forceConsistentCasingInFileNames": true,
-        "baseUrl": "src",
-        "paths": {
-            "api/*": [
-                "./api/*"
-            ],
-            "app/*": [
-                "./app/*"
-            ],
-            "assets/*": [
-                "./assets/*"
-            ],
-            "helpers/*": [
-                "./helpers/*"
-            ],
-            "i18n/*": [
-                "./i18n/*"
-            ],
-            "routing/*": [
-                "./routing/*"
-            ],
-            "store/*": [
-                "./store/*"
-            ],
-            "theme/*": [
-                "./theme/*"
-            ],
-            "ui/*": [
-                "./ui/*"
-            ]
-        }
-    },
-    "exclude": [
-        "node_modules",
-        "babel.config.js",
-        "metro.config.js",
-        "jest.config.js"
-    ]
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["dom", "esnext"],
+    "jsx": "react-native",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "src",
+    "paths": {
+      "api/*": ["./api/*"],
+      "app/*": ["./app/*"],
+      "assets/*": ["./assets/*"],
+      "helpers/*": ["./helpers/*"],
+      "i18n/*": ["./i18n/*"],
+      "routing/*": ["./routing/*"],
+      "store/*": ["./store/*"],
+      "theme/*": ["./theme/*"],
+      "ui/*": ["./ui/*"]
+    }
+  },
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
 }
