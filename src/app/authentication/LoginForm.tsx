@@ -1,29 +1,12 @@
 import React, { useState } from 'react';
 import firebase from 'firebase';
-import { Text, StyleSheet, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
-import { Spinner } from '../../ui/common';
+import { Spinner } from 'ui/common';
 
-const style = StyleSheet.create({
-    errorMessage: {
-        fontSize: 20,
-        alignSelf: 'center',
-        color: 'red',
-    },
-    textInput: {
-        marginLeft: 5,
-        marginRight: 5,
-    },
-    button: {
-        marginLeft: 5,
-        marginRight: 5,
-    },
-});
-
-type Props = {
-    name?: string;
-};
+import { styles } from './LoginForm.styles';
+import { Props } from './LoginForm.types';
 
 export const LoginForm = ({ name }: Props) => {
     console.log(name);
@@ -64,7 +47,7 @@ export const LoginForm = ({ name }: Props) => {
             return <Spinner size={'small'} />;
         }
         return (
-            <Button mode="outlined" onPress={handlePress} style={style.button}>
+            <Button mode="outlined" onPress={handlePress} style={styles.button}>
                 Log In
             </Button>
         );
@@ -73,7 +56,7 @@ export const LoginForm = ({ name }: Props) => {
     return (
         <>
             <TextInput
-                style={style.textInput}
+                style={styles.textInput}
                 mode="outlined"
                 label="E-mail"
                 value={email}
@@ -83,7 +66,7 @@ export const LoginForm = ({ name }: Props) => {
                 }}
             />
             <TextInput
-                style={style.textInput}
+                style={styles.textInput}
                 mode="outlined"
                 label="Password"
                 value={password}
@@ -93,7 +76,7 @@ export const LoginForm = ({ name }: Props) => {
                     setPassword(value);
                 }}
             />
-            <Text style={style.errorMessage}>{errorMessage}</Text>
+            <Text style={styles.errorMessage}>{errorMessage}</Text>
             <View>{renderButton()}</View>
         </>
     );

@@ -27,7 +27,7 @@
       "helpers/*": ["./helpers/*"],
       "i18n/*": ["./i18n/*"],
       "routing/*": ["./routing/*"],
-      "store/*": ["./store/*"],
+      "contexts/*": ["./contexts/*"],
       "theme/*": ["./theme/*"],
       "ui/*": ["./ui/*"]
     }

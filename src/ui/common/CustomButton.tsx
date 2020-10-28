@@ -1,32 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 
-const styles = StyleSheet.create({
-    textStyle: {
-        alignSelf: 'center',
-        color: '#007aff',
-        fontSize: 16,
-        fontWeight: '600',
-        paddingTop: 10,
-        paddingBottom: 10,
-    },
-    buttonStyle: {
-        flex: 1,
-        alignSelf: 'stretch',
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        borderWidth: 1,
-        borderColor: '#007aff',
-        marginLeft: 5,
-        marginRight: 5,
-    },
-});
+import { CustomButtonProps } from 'ui/common/CustomButton.types';
 
-interface Props {
-    onPress: () => void;
-    children: any;
-}
-export const CustomButton = ({ onPress, children }: Props) => {
+import { styles } from './CustomButton.styles';
+
+export const CustomButton = ({ onPress, children }: CustomButtonProps) => {
     const { buttonStyle, textStyle } = styles;
 
     return (

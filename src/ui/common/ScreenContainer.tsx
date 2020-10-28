@@ -1,18 +1,8 @@
-import React, { ReactNode } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 
-const style = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});
+import { styles } from 'ui/common/ScreenContainer.styles';
 
-interface Props {
-    children: ReactNode;
-}
-
-export const ScreenContainer = ({ children }: Props) => {
-    return <View style={style.container}>{children}</View>;
+export const ScreenContainer = ({ children }) => {
+    return <View style={styles.container}>{children}</View>;
 };

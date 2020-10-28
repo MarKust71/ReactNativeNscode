@@ -1,16 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import firebase from 'firebase';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Provider as PaperProvider } from 'react-native-paper';
 
-import { storeAsyncStorageData } from './src/app/asyncStorage/asyncStorageDataHandling';
-import { Home } from './src/app/main/Home';
-import { AuthStackParamList, Welcome } from './src/app/main/Welcome';
-import { Splash } from './src/ui/common';
-import { AuthContext } from './src/app/context';
-import { LoginForm } from './src/app/authentication/LoginForm';
+import { storeAsyncStorageData } from 'app/asyncStorage/asyncStorageDataHandling';
+import { TabsNavigator } from 'routing/TabsNavigator';
+import { AuthStackNavigator } from 'routing/AuthStack';
+import { Splash } from 'ui/common';
+import { AuthContext } from 'contexts/AuthContext';
 
 export const App = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -65,36 +62,14 @@ export const App = () => {
         }
     }, []);
 
-    const AuthStack = createStackNavigator<AuthStackParamList>();
-    const Tabs = createBottomTabNavigator();
-
     if (isLoading) {
         return <Splash />;
     }
 
-    // console.log('userToken:', userToken);
-
     return (
         <PaperProvider>
             <AuthContext.Provider value={authContext}>
-                {userToken ? (
-                    <NavigationContainer>
-                        <Tabs.Navigator>
-                            <Tabs.Screen name="Home" component={Home} />
-                        </Tabs.Navigator>
-                    </NavigationContainer>
-                ) : (
-                    <NavigationContainer>
-                        <AuthStack.Navigator>
-                            <AuthStack.Screen
-                                name="Welcome"
-                                component={Welcome}
-                                options={{ headerTitleStyle: { alignSelf: 'center' } }}
-                            />
-                            <AuthStack.Screen name="LoginForm" component={LoginForm} options={{ title: 'Log In' }} />
-                        </AuthStack.Navigator>
-                    </NavigationContainer>
-                )}
+                <NavigationContainer>{userToken ? <TabsNavigator /> : <AuthStackNavigator />}</NavigationContainer>
             </AuthContext.Provider>
         </PaperProvider>
     );

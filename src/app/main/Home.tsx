@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Button, Text } from 'react-native-paper';
 
-import { ScreenContainer } from '../../ui/common';
-import { AuthContext } from '../context';
+import { ScreenContainer } from 'ui/common';
+import { AuthContext } from 'contexts/AuthContext';
 import { readAsyncStorageData } from '../asyncStorage/asyncStorageDataHandling';
 
 export const Home = () => {

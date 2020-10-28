@@ -1,10 +1,6 @@
 import React from 'react';
 
-type ContextProps = {
-    contextUserToken: string;
-    setContextUserToken: (token: string) => void;
-    signOut: () => void;
-};
+import { ContextProps } from 'contexts/AuthContext.types';
 
 export const AuthContext = React.createContext<ContextProps>({
     contextUserToken: '',

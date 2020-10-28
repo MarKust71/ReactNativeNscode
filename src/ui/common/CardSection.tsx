@@ -1,22 +1,8 @@
-import React, { ReactNode } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 
-const styles = StyleSheet.create({
-    containerStyle: {
-        borderBottomWidth: 1,
-        padding: 5,
-        backgroundColor: '#fff',
-        justifyContent: 'flex-start',
-        flexDirection: 'row',
-        borderColor: '#ddd',
-        position: 'relative',
-    },
-});
+import { styles } from 'ui/common/CardSection.styles';
 
-interface Props {
-    children: ReactNode;
-}
-
-export const CardSection = (props: Props) => {
-    return <View style={styles.containerStyle}>{props.children}</View>;
+export const CardSection = ({ children }) => {
+    return <View style={styles.containerStyle}>{children}</View>;
 };

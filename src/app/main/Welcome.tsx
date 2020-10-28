@@ -1,18 +1,8 @@
 import React from 'react';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { Button, Text } from 'react-native-paper';
 
-import { ScreenContainer } from '../../ui/common';
-
-export type AuthStackParamList = {
-    Welcome: undefined;
-    LoginForm: undefined;
-};
-type WelcomeScreenNavigationProp = StackNavigationProp<AuthStackParamList, 'LoginForm'>;
-type Props = {
-    navigation: WelcomeScreenNavigationProp;
-    name?: string;
-};
+import { ScreenContainer } from 'ui/common';
+import { Props } from 'app/main/Welcome.types';
 
 export const Welcome = ({ navigation }: Props) => {
     return (
