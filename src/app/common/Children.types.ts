@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 
-export type CustomButtonProps = {
-    onPress: () => void;
+export type Children = {
     children: ReactNode;
 };

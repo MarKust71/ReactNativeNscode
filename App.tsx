@@ -7,7 +7,7 @@ import { storeAsyncStorageData } from 'app/asyncStorage/asyncStorageDataHandling
 import { Splash } from 'ui/common';
 import { AuthContext } from 'contexts/AuthContext';
 import { TabsNavigator } from 'routing/TabsNavigator';
-import { AuthStackNavigator } from 'routing/AuthStack';
+import { AuthStackNavigator } from 'routing/AuthStackNavigator';
 
 export const App = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +31,8 @@ export const App = () => {
 
     useEffect(() => {
         if (!firebase.apps.length) {
-            const firebaseApp = firebase.initializeApp({
+            // const firebaseApp = firebase.initializeApp({
+            firebase.initializeApp({
                 apiKey: 'AIzaSyAfPA7ZHxWQuNtJYX28lWwPAAe6jP_Xawc',
                 authDomain: 'nscode-568a7.firebaseapp.com',
                 databaseURL: 'https://nscode-568a7.firebaseio.com',
@@ -42,7 +43,6 @@ export const App = () => {
             });
             firebase.auth().signOut();
             firebase.auth().onAuthStateChanged((user) => {
-                console.log('onAuthStateChanged fired');
                 if (user) {
                     user.getIdToken()
                         .then((result) => {
@@ -56,7 +56,7 @@ export const App = () => {
                     setUserToken('');
                 }
             });
-            console.log(`Firebase App ${firebaseApp.name} created`);
+            // console.log(`Firebase App ${firebaseApp.name} created`);
             // } else {
             //     console.log('Firebase App probably created before...', firebase.apps);
         }

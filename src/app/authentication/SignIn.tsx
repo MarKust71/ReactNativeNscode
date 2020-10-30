@@ -2,13 +2,13 @@ import React from 'react';
 import { Button, Text } from 'react-native-paper';
 
 import { ScreenContainer } from 'ui/common';
-import { Props } from 'app/main/SignIn.types';
+import { SignInProps as Props } from 'app/authentication/SignIn.types';
 
 export const SignIn = ({ navigation }: Props) => {
     return (
         <ScreenContainer>
             <Text>Sign In Screen</Text>
-            <Button mode="outlined" onPress={() => navigation.push('LoginForm')}>
+            <Button mode="contained" onPress={() => navigation.push('SignInForm')}>
                 Sign In
             </Button>
         </ScreenContainer>

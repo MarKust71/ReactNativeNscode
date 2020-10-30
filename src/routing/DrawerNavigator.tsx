@@ -2,8 +2,8 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { DrawerContent } from 'routing/DrawerContent';
-import { SignIn } from 'app/main/SignIn';
-import { Home } from 'app/main/Home';
+import { SignIn } from 'app/authentication/SignIn';
+import { Home } from 'app/home/Home';
 
 const Drawer = createDrawerNavigator();
 

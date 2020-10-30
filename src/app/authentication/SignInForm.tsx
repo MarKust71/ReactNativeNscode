@@ -47,14 +47,14 @@ export const SignInForm = ({ name }: Props) => {
             return <Spinner size={'small'} />;
         }
         return (
-            <Button mode="outlined" onPress={handlePress} style={styles.button}>
+            <Button mode="contained" onPress={handlePress} style={styles.button}>
                 Sign In
             </Button>
         );
     };
 
     return (
-        <View>
+        <View style={{ flex: 1, justifyContent: 'center' }}>
             <TextInput
                 style={styles.textInput}
                 mode="outlined"

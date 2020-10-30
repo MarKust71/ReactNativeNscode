@@ -7,11 +7,10 @@ export const styles = StyleSheet.create({
         color: 'red',
     },
     textInput: {
-        marginLeft: 5,
-        marginRight: 5,
+        marginLeft: 15,
+        marginRight: 15,
     },
     button: {
-        marginLeft: 5,
-        marginRight: 5,
+        alignSelf: 'center',
     },
 });
