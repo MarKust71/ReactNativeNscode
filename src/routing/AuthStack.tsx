@@ -1,8 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 
-import { Welcome } from 'app/main/Welcome';
-import { LoginForm } from 'app/authentication/LoginForm';
+import { SignIn } from 'app/main/SignIn';
+import { SignInForm } from 'app/authentication/SignInForm';
 import { AuthStackParamList } from 'routing/AuthStack.types';
 
 const AuthStack = createStackNavigator<AuthStackParamList>();
@@ -12,10 +12,10 @@ export const AuthStackNavigator = () => {
         <AuthStack.Navigator>
             <AuthStack.Screen
                 name="Welcome"
-                component={Welcome}
+                component={SignIn}
                 options={{ headerTitleStyle: { alignSelf: 'center' } }}
             />
-            <AuthStack.Screen name="LoginForm" component={LoginForm} options={{ title: 'Log In' }} />
+            <AuthStack.Screen name="LoginForm" component={SignInForm} options={{ title: 'Log In' }} />
         </AuthStack.Navigator>
     );
 };

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import firebase from 'firebase';
 
-import { LoginForm } from './src/app/authentication/LoginForm';
+import { SignInForm } from 'app/authentication/SignInForm';
+
 import { CustomButton, CardContainer, CardSection, Header } from './src/ui/common';
 
 const styles = StyleSheet.create({
@@ -49,7 +50,7 @@ export const App = () => {
                 </CardContainer>
             );
         }
-        return <LoginForm />;
+        return <SignInForm />;
     };
 
     return (

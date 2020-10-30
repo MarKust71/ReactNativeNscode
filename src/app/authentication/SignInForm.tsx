@@ -5,10 +5,10 @@ import { Button, TextInput } from 'react-native-paper';
 
 import { Spinner } from 'ui/common';
 
-import { styles } from './LoginForm.styles';
-import { Props } from './LoginForm.types';
+import { styles } from './SignInForm.styles';
+import { SignInFormProps as Props } from './SignInForm.types';
 
-export const LoginForm = ({ name }: Props) => {
+export const SignInForm = ({ name }: Props) => {
     console.log(name);
 
     const [email, setEmail] = useState('test@test.pl');
@@ -48,13 +48,13 @@ export const LoginForm = ({ name }: Props) => {
         }
         return (
             <Button mode="outlined" onPress={handlePress} style={styles.button}>
-                Log In
+                Sign In
             </Button>
         );
     };
 
     return (
-        <>
+        <View>
             <TextInput
                 style={styles.textInput}
                 mode="outlined"
@@ -78,6 +78,6 @@ export const LoginForm = ({ name }: Props) => {
             />
             <Text style={styles.errorMessage}>{errorMessage}</Text>
             <View>{renderButton()}</View>
-        </>
+        </View>
     );
 };

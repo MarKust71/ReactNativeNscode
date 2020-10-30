@@ -1,14 +1,14 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 
-import { Home } from '../app/main/Home';
+import { HomeStackNavigator } from 'routing/HomeStack';
 
 const Tabs = createBottomTabNavigator();
 
 export const TabsNavigator = () => {
     return (
         <Tabs.Navigator>
-            <Tabs.Screen name="Home" component={Home} />
+            <Tabs.Screen name="Home" component={HomeStackNavigator} />
         </Tabs.Navigator>
     );
 };

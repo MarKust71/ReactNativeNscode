@@ -4,10 +4,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Provider as PaperProvider } from 'react-native-paper';
 
 import { storeAsyncStorageData } from 'app/asyncStorage/asyncStorageDataHandling';
-import { TabsNavigator } from 'routing/TabsNavigator';
-import { AuthStackNavigator } from 'routing/AuthStack';
 import { Splash } from 'ui/common';
 import { AuthContext } from 'contexts/AuthContext';
+import { TabsNavigator } from 'routing/TabsNavigator';
+import { AuthStackNavigator } from 'routing/AuthStack';
 
 export const App = () => {
     const [isLoading, setIsLoading] = useState(false);
