@@ -6,11 +6,9 @@ import { Button, TextInput } from 'react-native-paper';
 import { Spinner } from 'ui/common';
 
 import { styles } from './SignInForm.styles';
-import { SignInFormProps as Props } from './SignInForm.types';
+// import { SignInFormProps as Props } from './SignInForm.types';
 
-export const SignInForm = ({ name }: Props) => {
-    console.log(name);
-
+export const SignInForm = () => {
     const [email, setEmail] = useState('test@test.pl');
     const [password, setPassword] = useState('testtest');
     const [errorMessage, setErrorMessage] = useState('');

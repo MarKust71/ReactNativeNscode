@@ -1,16 +1,27 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from 'react-native-paper';
-import { DrawerContentScrollView } from '@react-navigation/drawer';
+import { Drawer } from 'react-native-paper';
 
-export const DrawerContent = () => {
+export const DrawerContent = ({ navigation }) => {
+    // const [active, setActive] = useState('');
+    // const { signOut } = useContext(AuthContext);
+
     return (
-        <View style={{ flex: 1 }}>
-            <DrawerContentScrollView>
-                <View>
-                    <Text>Main Content</Text>
-                </View>
-            </DrawerContentScrollView>
-        </View>
+        <Drawer.Section>
+            <Drawer.Item
+                label="Home"
+                onPress={() => {
+                    navigation.closeDrawer();
+                    navigation.navigate('Home');
+                }}
+            />
+            <Drawer.Item
+                label="Main"
+                onPress={() => {
+                    navigation.closeDrawer();
+                    navigation.navigate('Main');
+                }}
+            />
+            {/*<Drawer.Item label="Sign Out" onPress={() => signOut()} />*/}
+        </Drawer.Section>
     );
 };

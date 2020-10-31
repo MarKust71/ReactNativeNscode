@@ -1,5 +1,8 @@
 export type ContextProps = {
-    contextUserToken: string;
-    setContextUserToken: (token: string) => void;
+    signIn: () => void;
     signOut: () => void;
+    contextUserToken: string;
+    // setContextUserToken: (token: string) => void;
+    contextUser: string;
+    // setContextUser: (user: string) => void;
 };
