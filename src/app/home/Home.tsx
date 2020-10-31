@@ -26,10 +26,6 @@ export const Home = ({ navigation }: Props) => {
             >
                 Enter the main app screen
             </Button>
-            {/* <CustomButton title="Drawer" onPress={() => navigation.toggleDrawer()} /> */}
-            {/*<Button mode="contained" onPress={() => context.value.signOut()}>*/}
-            {/*    Sign Out*/}
-            {/*</Button>*/}
         </ScreenContainer>
     );
 };
