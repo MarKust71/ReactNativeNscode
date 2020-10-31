@@ -11,8 +11,6 @@ import { DrawerNavigator } from 'routing/DrawerNavigator';
 
 export const App = () => {
     const [isLoading, setIsLoading] = useState(false);
-    // const [userToken, setUserToken] = useState('');
-    // const [user, setUser] = useState('');
 
     const [value, setValue] = useState({
         signIn: () => {
@@ -23,53 +21,20 @@ export const App = () => {
             firebase.auth().signOut();
         },
         contextUserToken: '',
-        // contextUserToken: userToken,
-        // setContextUserToken: (token: string) => {
-        //     authContext.contextUserToken = token;
-        // },
         contextUser: '',
-        // contextUser: user,
-        // setContextUser: (user: string) => {
-        //     authContext.contextUser = user;
-        // },
     });
 
-    /*
-    const authContext = useMemo(() => {
-        return {
-            signIn: () => {
-                setIsLoading(false);
-            },
-            signOut: () => {
-                setIsLoading(false);
-                firebase.auth().signOut();
-            },
-            contextUserToken: userToken,
-            setContextUserToken: (token: string) => {
-                authContext.contextUserToken = token;
-            },
-            contextUser: user,
-            setContextUser: (user: string) => {
-                authContext.contextUser = user;
-            },
-        };
-    }, []);
-*/
-
     const authContext = useMemo(() => ({ value, setValue }), [value, setValue]);
-    console.log('authcontext', authContext);
+    // console.log('authcontext', authContext);
 
     useEffect(() => {
         readAsyncStorageData('token')
             .then((result) => {
-                // setUserToken(result || '');
-                // authContext.setContextUserToken(result || '');
                 setValue({ ...value, contextUserToken: result || '' });
             })
             .catch((error) => console.log('Coś nie tak z pobraniem tokena ze storage:', error.message));
         readAsyncStorageData('user')
             .then((result) => {
-                // authContext.setContextUser(result || '');
                 setValue({ ...value, contextUser: result || '' });
             })
             .catch((error) => console.log('Coś nie tak z pobraniem usera ze storage:', error.message));
@@ -89,25 +54,21 @@ export const App = () => {
             });
             // firebase.auth().signOut();
             firebase.auth().onAuthStateChanged((user) => {
+                // console.log('onAuthStateChanged', user);
                 if (user) {
                     user.getIdToken()
                         .then((result) => {
+                            setValue({ ...value, contextUserToken: result, contextUser: user.email || '' });
                             storeAsyncStorageData({ key: 'token', value: result });
                             storeAsyncStorageData({ key: 'user', value: user.email || '' });
-                            // authContext.setContextUserToken(result);
-                            // authContext.setContextUser(user.email || '');
-                            // setUserToken(result);
+                            // console.log('storeAsyncStorageData', result, user.email);
                         })
                         .catch((error) => {
-                            // authContext.setContextUserToken('');
-                            // authContext.setContextUser('');
-                            // setUserToken('');
+                            setValue({ ...value, contextUserToken: '', contextUser: '' });
                             console.log('Coś nie tak z tokenem:', error.message);
                         });
                 } else {
-                    // authContext.setContextUserToken('');
-                    // authContext.setContextUser('');
-                    // setUserToken('');
+                    setValue({ ...value, contextUserToken: '', contextUser: '' });
                 }
             });
             // console.log(`Firebase App ${firebaseApp.name} created`);
