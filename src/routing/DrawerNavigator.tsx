@@ -9,7 +9,11 @@ const Drawer = createDrawerNavigator();
 
 export const DrawerNavigator = () => {
     return (
-        <Drawer.Navigator drawerContent={DrawerContent}>
+        <Drawer.Navigator
+            drawerContent={({ navigation }) => {
+                return <DrawerContent navigation={navigation} />;
+            }}
+        >
             <Drawer.Screen name="Home" component={HomeTabsNavigator} />
             <Drawer.Screen name="Main" component={MainTabsNavigator} />
         </Drawer.Navigator>

@@ -17,13 +17,19 @@ export const Home = ({ navigation }: Props) => {
                     navigation.push('ShowToken');
                 }}
             >
-                Show Token
+                Show Token and User
             </Button>
-            <Button onPress={() => {}}>Menu option #2</Button>
+            <Button
+                onPress={() => {
+                    navigation.navigate('Main');
+                }}
+            >
+                Enter the main app screen
+            </Button>
             {/* <CustomButton title="Drawer" onPress={() => navigation.toggleDrawer()} /> */}
-            <Button mode="contained" onPress={() => context.value.signOut()}>
-                Sign Out
-            </Button>
+            {/*<Button mode="contained" onPress={() => context.value.signOut()}>*/}
+            {/*    Sign Out*/}
+            {/*</Button>*/}
         </ScreenContainer>
     );
 };

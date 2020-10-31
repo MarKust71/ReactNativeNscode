@@ -1,9 +1,5 @@
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-
-import { DrawerNavigationParamList } from 'routing/DrawerNavigation.types';
-
-export type DrawerContentNavigationProp = DrawerNavigationProp<DrawerNavigationParamList>;
+import { DrawerNavigationHelpers } from '@react-navigation/drawer/lib/typescript/src/types';
 
 export type DrawerContentProps = {
-    navigation: DrawerContentNavigationProp;
+    navigation: DrawerNavigationHelpers;
 };
