@@ -3,7 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { HomeTabsNavigator } from 'routing/HomeTabsNavigator';
 import { MainTabsNavigator } from 'routing/MainTabsNavigator';
-import { DrawerContent } from 'routing/DrawerContent';
+import { DrawerContent } from 'app/drawer/DrawerContent';
 
 const Drawer = createDrawerNavigator();
 
