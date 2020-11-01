@@ -21,4 +21,12 @@ export const styles = StyleSheet.create({
         fontWeight: '800',
         marginBottom: 30,
     },
+    buttonGroup: {
+        flex: 1 / 5,
+        justifyContent: 'space-around',
+        alignSelf: 'center',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        margin: 5,
+    },
 });

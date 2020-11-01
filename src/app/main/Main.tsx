@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, UIManager, Platform } from 'react-native';
-import Svg, { Defs, LinearGradient, Rect, Stop, Text as SvgText } from 'react-native-svg';
+import { View, Text, UIManager, Platform } from 'react-native';
+import Svg, { Defs, LinearGradient as SvgLinearGradient, Rect, Stop, Text as SvgText } from 'react-native-svg';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { ScreenContainer } from 'ui/common';
 import { styles } from 'app/main/Main.styles';
+import { CBButtons } from 'app/main/CBButtons';
+// import { Notifications } from 'react-native-notifications';
 
 export const Main = () => {
     if (Platform.OS === 'android') {
@@ -17,9 +19,10 @@ export const Main = () => {
     const barWidth = 300;
     const fraction = (desiredConsumption - (toBeConsumed || 0)) / desiredConsumption;
     const toBeConsumedFraction = barWidth * fraction;
-    console.log(setDesiredConsumption);
+    console.log('setDesiredConsumption:', setDesiredConsumption);
 
     const storeData = async (value: number) => {
+        console.log('store:', value);
         try {
             await AsyncStorage.setItem('toBeConsumed', String(value));
             console.log('storing works');
@@ -43,21 +46,76 @@ export const Main = () => {
         }
     };
 
+    /*
     const disableNotification = () => {
+        // Notifications.removeAllDeliveredNotifications();
         // Notifications.cancelAllScheduledNotificationsAsync();
     };
+*/
 
+    /*
     const enableNotification = () => {
+        // Notifications.removeAllDeliveredNotifications();
         //     Notifications.cancelAllScheduledNotificationsAsync();
     };
+*/
+
+    const onPressButton = async (consumed: number) => {
+        if (toBeConsumed || 0 > 0) {
+            const _toBeConsumed = toBeConsumed || 0 - consumed;
+            if (_toBeConsumed > 0) {
+                await storeData(_toBeConsumed);
+                setToBeConsumed(_toBeConsumed);
+            } else {
+                await storeData(0);
+                setToBeConsumed(0);
+            }
+        }
+
+        console.log('consumed:', consumed);
+    };
+
+    const buttons = [
+        {
+            text: '0.25 L',
+            onPress: () => {
+                onPressButton(0.25);
+            },
+            colors: ['#0052D4', '#0052D4'],
+        },
+        {
+            text: '0.50 L',
+            onPress: () => {
+                onPressButton(0.5);
+            },
+            colors: ['#0052D4', '#0052D4'],
+        },
+        {
+            text: '0.75 L',
+            onPress: () => {
+                onPressButton(0.75);
+            },
+            colors: ['#0052D4', '#0052D4'],
+        },
+        {
+            text: '1 L',
+            onPress: () => {
+                onPressButton(1);
+            },
+            colors: ['#0052D4', '#0052D4'],
+        },
+    ];
 
     useEffect(() => {
         const data = async () => {
-            if (await retrieveData()) {
-                const _toBeConsumed = await retrieveData();
-                setToBeConsumed(_toBeConsumed);
+            await storeData(1);
+            const retrievedData = await retrieveData();
+            if (retrievedData) {
+                // const _toBeConsumed = await retrieveData();
+                // setToBeConsumed(_toBeConsumed);
+                setToBeConsumed(retrievedData);
             } else {
-                enableNotification();
+                // enableNotification();
                 await storeData(3);
             }
         };
@@ -69,11 +127,11 @@ export const Main = () => {
             <View style={styles.containerStyle}>
                 <Svg height={250} width={400}>
                     <Defs>
-                        <LinearGradient id="grad" x1="0" y1="0" x2="170" y2="0">
+                        <SvgLinearGradient id="grad" x1="0" y1="0" x2="170" y2="0">
                             <Stop offset="0" stopColor="#9CECFB" stopOpacity="1" />
                             <Stop offset="1" stopColor="#65C7F7" stopOpacity="1" />
                             <Stop offset="2" stopColor="#0052D4" stopOpacity="1" />
-                        </LinearGradient>
+                        </SvgLinearGradient>
                     </Defs>
                     <Rect
                         x={50}
@@ -96,6 +154,9 @@ export const Main = () => {
                     </SvgText>
                 </Svg>
             </View>
+            <Text>
+                toBeConsumed: {toBeConsumed}, desiredConsumption: {desiredConsumption}
+            </Text>
             <View
                 style={{
                     flex: 1 / 3,
@@ -107,6 +168,7 @@ export const Main = () => {
                 <Text style={{ fontSize: 100, fontWeight: '600' }}>{desiredConsumption - (toBeConsumed || 0)}</Text>
                 <Text style={{ fontSize: 50, fontWeight: '400' }}>/{desiredConsumption}</Text>
             </View>
+            {/*
             <View style={styles.notificationViewStyle}>
                 <TouchableOpacity onPress={enableNotification}>
                     <Text style={styles.notificationEnableTextStyle}>ENABLE NOTIFICATIONS</Text>
@@ -115,6 +177,8 @@ export const Main = () => {
                     <Text style={styles.notificationDisableTextStyle}>DISABLE NOTIFICATIONS</Text>
                 </TouchableOpacity>
             </View>
+*/}
+            <CBButtons buttons={buttons} />
         </ScreenContainer>
     );
 };
