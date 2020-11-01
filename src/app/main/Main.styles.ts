@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
     containerStyle: {
-        flex: 1,
+        flex: 1 / 2,
         justifyContent: 'space-between',
         backgroundColor: '#ecf0f1',
     },
@@ -28,5 +28,19 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         margin: 5,
+    },
+    resultsContainer: {
+        flex: 1 / 3,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    resultsConsumed: {
+        fontSize: 100,
+        fontWeight: '600',
+    },
+    resultsToBeConsumed: {
+        fontSize: 50,
+        fontWeight: '400',
     },
 });

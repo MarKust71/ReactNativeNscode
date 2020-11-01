@@ -1,121 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, UIManager, Platform } from 'react-native';
 import Svg, { Defs, LinearGradient as SvgLinearGradient, Rect, Stop, Text as SvgText } from 'react-native-svg';
-import AsyncStorage from '@react-native-community/async-storage';
 
 import { ScreenContainer } from 'ui/common';
 import { styles } from 'app/main/Main.styles';
 import { CBButtons } from 'app/main/CBButtons';
-// import { Notifications } from 'react-native-notifications';
+import { buttonsArray } from 'app/main/buttons';
+import { storeData } from 'app/main/storeData';
+import { retrieveData } from 'app/main/retrieveData';
+import { rtrimNumber } from 'app/main/rtrimNumber';
 
 export const Main = () => {
     if (Platform.OS === 'android') {
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     }
 
-    const [toBeConsumed, setToBeConsumed] = useState<number | null>(3);
-    const [desiredConsumption, setDesiredConsumption] = useState(3);
+    const [toBeConsumed, setToBeConsumed] = useState(3);
+    const [desiredConsumption] = useState(3);
 
     const barWidth = 300;
-    const fraction = (desiredConsumption - (toBeConsumed || 0)) / desiredConsumption;
-    const toBeConsumedFraction = barWidth * fraction;
-    console.log('setDesiredConsumption:', setDesiredConsumption);
-
-    const storeData = async (value: number) => {
-        console.log('store:', value);
-        try {
-            await AsyncStorage.setItem('toBeConsumed', String(value));
-            console.log('storing works');
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const retrieveData = async () => {
-        try {
-            const value = await AsyncStorage.getItem('toBeConsumed');
-            console.log('retrieval works');
-            if (value !== null) {
-                return Number(value);
-            } else {
-                return null;
-            }
-        } catch (error) {
-            console.log(error);
-            return null;
-        }
-    };
-
-    /*
-    const disableNotification = () => {
-        // Notifications.removeAllDeliveredNotifications();
-        // Notifications.cancelAllScheduledNotificationsAsync();
-    };
-*/
-
-    /*
-    const enableNotification = () => {
-        // Notifications.removeAllDeliveredNotifications();
-        //     Notifications.cancelAllScheduledNotificationsAsync();
-    };
-*/
+    const fraction = (desiredConsumption - toBeConsumed) / desiredConsumption;
+    const consumedFraction = barWidth * fraction;
+    // console.log('setDesiredConsumption:', setDesiredConsumption);
 
     const onPressButton = async (consumed: number) => {
-        if (toBeConsumed || 0 > 0) {
-            const _toBeConsumed = toBeConsumed || 0 - consumed;
-            if (_toBeConsumed > 0) {
-                await storeData(_toBeConsumed);
-                setToBeConsumed(_toBeConsumed);
-            } else {
-                await storeData(0);
-                setToBeConsumed(0);
-            }
+        if (toBeConsumed - consumed > 0) {
+            await storeData(toBeConsumed - consumed);
+            setToBeConsumed(toBeConsumed - consumed);
+            return;
         }
-
-        console.log('consumed:', consumed);
+        await storeData(0);
+        setToBeConsumed(0);
     };
 
-    const buttons = [
-        {
-            text: '0.25 L',
-            onPress: () => {
-                onPressButton(0.25);
-            },
-            colors: ['#0052D4', '#0052D4'],
-        },
-        {
-            text: '0.50 L',
-            onPress: () => {
-                onPressButton(0.5);
-            },
-            colors: ['#0052D4', '#0052D4'],
-        },
-        {
-            text: '0.75 L',
-            onPress: () => {
-                onPressButton(0.75);
-            },
-            colors: ['#0052D4', '#0052D4'],
-        },
-        {
-            text: '1 L',
-            onPress: () => {
-                onPressButton(1);
-            },
-            colors: ['#0052D4', '#0052D4'],
-        },
-    ];
+    const buttons = buttonsArray(onPressButton);
 
     useEffect(() => {
         const data = async () => {
-            await storeData(1);
             const retrievedData = await retrieveData();
             if (retrievedData) {
-                // const _toBeConsumed = await retrieveData();
-                // setToBeConsumed(_toBeConsumed);
                 setToBeConsumed(retrievedData);
             } else {
-                // enableNotification();
                 await storeData(3);
             }
         };
@@ -144,40 +69,23 @@ export const Main = () => {
                     <Rect
                         x={50}
                         y={50}
-                        width={toBeConsumedFraction}
+                        width={consumedFraction}
                         height={70}
                         fill="#0052D4"
                         onLongPress={() => setToBeConsumed(3)}
                     />
                     <SvgText fill="black" fillOpacity={0.3} fontSize="20" x="200" y="180" textAnchor="middle">
-                        Long press to reset progress.
+                        Long press the bar to reset progress
                     </SvgText>
                 </Svg>
             </View>
-            <Text>
-                toBeConsumed: {toBeConsumed}, desiredConsumption: {desiredConsumption}
-            </Text>
-            <View
-                style={{
-                    flex: 1 / 3,
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
-                <Text style={{ fontSize: 100, fontWeight: '600' }}>{desiredConsumption - (toBeConsumed || 0)}</Text>
-                <Text style={{ fontSize: 50, fontWeight: '400' }}>/{desiredConsumption}</Text>
+            <View style={styles.resultsContainer}>
+                <Text style={styles.resultsConsumed}>
+                    {rtrimNumber((desiredConsumption - toBeConsumed).toFixed(2))}
+                </Text>
+                <Text style={styles.resultsToBeConsumed}>/{desiredConsumption}</Text>
             </View>
-            {/*
-            <View style={styles.notificationViewStyle}>
-                <TouchableOpacity onPress={enableNotification}>
-                    <Text style={styles.notificationEnableTextStyle}>ENABLE NOTIFICATIONS</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={disableNotification}>
-                    <Text style={styles.notificationDisableTextStyle}>DISABLE NOTIFICATIONS</Text>
-                </TouchableOpacity>
-            </View>
-*/}
+            <Text style={{ fontSize: 20, color: 'black', opacity: 0.3 }}>How much did you drink?</Text>
             <CBButtons buttons={buttons} />
         </ScreenContainer>
     );
