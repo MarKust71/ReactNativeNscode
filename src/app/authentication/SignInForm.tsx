@@ -4,9 +4,10 @@ import { Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
 import { Spinner } from 'ui/common';
+import { createNotificationChannel, MY_NOTIFICATION_CHANNEL } from 'app/notifications/notification.helpers';
+import { initializePushNotification } from 'contexts/PushNotification';
 
 import { styles } from './SignInForm.styles';
-// import { SignInFormProps as Props } from './SignInForm.types';
 
 export const SignInForm = () => {
     const [email, setEmail] = useState('test@test.pl');
@@ -18,6 +19,8 @@ export const SignInForm = () => {
         setLoading(false);
         setEmail('');
         setPassword('');
+        initializePushNotification();
+        createNotificationChannel(MY_NOTIFICATION_CHANNEL);
     };
 
     const onLoginFail = (reason: any) => {

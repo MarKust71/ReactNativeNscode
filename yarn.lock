@@ -1656,6 +1656,11 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-native-push-notification@^5.0.5":
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@types/react-native-push-notification/-/react-native-push-notification-5.0.5.tgz#a84efdeb15af414a89b1291f4df631266d6a4330"
+  integrity sha512-rdpEb+YZtTmGJ7qEhwENjNkICU6pnwlCV2U+kvU6cAhuQxeQFgxFTKijN3kqOWL9SW8l0PeW29QREx6mvdeurg==
+
 "@types/react-native@^0.63.27":
   version "0.63.30"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.63.30.tgz#a0bd61e61b7a020a538ea22901be2f5d178fe02f"
@@ -6513,6 +6518,11 @@ react-native-paper@^4.2.0:
     "@callstack/react-theme-provider" "^3.0.5"
     color "^3.1.2"
     react-native-safe-area-view "^0.14.9"
+
+react-native-push-notification@^6.1.2:
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-6.1.2.tgz#b1d0aecdfbabd0e46106bcf0b249f07d7ab5db63"
+  integrity sha512-fhA9UR6j0JHUqnE5okCGnMKD5+HfmkWwEvxJznoYTqhXFTweO6P12RgZcqu/4/OCp7jXuSCwPZC+L6H6r8Ly2Q==
 
 react-native-reanimated@^1.13.1:
   version "1.13.1"

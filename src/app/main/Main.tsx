@@ -9,6 +9,7 @@ import { buttonsArray } from 'app/main/buttons';
 import { storeData } from 'app/main/storeData';
 import { retrieveData } from 'app/main/retrieveData';
 import { rtrimNumber } from 'app/main/rtrimNumber';
+import { cancelNotifications, setNotification } from 'app/notifications/notification.helpers';
 
 export const Main = () => {
     if (Platform.OS === 'android') {
@@ -21,12 +22,13 @@ export const Main = () => {
     const barWidth = 300;
     const fraction = (desiredConsumption - toBeConsumed) / desiredConsumption;
     const consumedFraction = barWidth * fraction;
-    // console.log('setDesiredConsumption:', setDesiredConsumption);
 
     const onPressButton = async (consumed: number) => {
+        cancelNotifications();
         if (toBeConsumed - consumed > 0) {
             await storeData(toBeConsumed - consumed);
             setToBeConsumed(toBeConsumed - consumed);
+            setNotification();
             return;
         }
         await storeData(0);
@@ -34,6 +36,17 @@ export const Main = () => {
     };
 
     const buttons = buttonsArray(onPressButton);
+
+    const handleLongPress = () => {
+        cancelNotifications();
+        setToBeConsumed(3);
+    };
+
+    const handlePress = () => {
+        if (toBeConsumed === 3) {
+            setNotification();
+        }
+    };
 
     useEffect(() => {
         const data = async () => {
@@ -64,7 +77,8 @@ export const Main = () => {
                         width={barWidth}
                         height={70}
                         fill="#9CECFB"
-                        onLongPress={() => setToBeConsumed(3)}
+                        onLongPress={handleLongPress}
+                        onPress={handlePress}
                     />
                     <Rect
                         x={50}
@@ -72,7 +86,8 @@ export const Main = () => {
                         width={consumedFraction}
                         height={70}
                         fill="#0052D4"
-                        onLongPress={() => setToBeConsumed(3)}
+                        onLongPress={handleLongPress}
+                        onPress={handlePress}
                     />
                     <SvgText fill="black" fillOpacity={0.3} fontSize="20" x="200" y="180" textAnchor="middle">
                         Long press the bar to reset progress
@@ -85,7 +100,7 @@ export const Main = () => {
                 </Text>
                 <Text style={styles.resultsToBeConsumed}>/{desiredConsumption}</Text>
             </View>
-            <Text style={{ fontSize: 20, color: 'black', opacity: 0.3 }}>How much did you drink?</Text>
+            <Text style={styles.resultsQuestion}>How much did you drink?</Text>
             <CBButtons buttons={buttons} />
         </ScreenContainer>
     );

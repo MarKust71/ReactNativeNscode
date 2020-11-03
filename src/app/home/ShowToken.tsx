@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Text } from 'react-native-paper';
+import PushNotification from 'react-native-push-notification';
 
 import { ScreenContainer } from 'ui/common';
 import { readAsyncStorageData } from 'app/asyncStorage/asyncStorageDataHandling';
@@ -7,6 +8,8 @@ import { readAsyncStorageData } from 'app/asyncStorage/asyncStorageDataHandling'
 export const ShowToken = () => {
     const [token, setToken] = useState('');
     const [user, setUser] = useState('');
+
+    PushNotification.localNotification({ channelId: 'my-channel', message: 'no kurwa w końcu', title: 'tytuł' });
 
     readAsyncStorageData('token').then((result) => {
         if (result) {

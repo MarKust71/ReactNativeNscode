@@ -43,4 +43,9 @@ export const styles = StyleSheet.create({
         fontSize: 50,
         fontWeight: '400',
     },
+    resultsQuestion: {
+        fontSize: 20,
+        color: 'black',
+        opacity: 0.3,
+    },
 });
