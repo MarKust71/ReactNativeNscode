@@ -2,7 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { AuthStackParamList } from 'routing/AuthStack.types';
 
-export type SignInScreenNavigationProp = StackNavigationProp<AuthStackParamList, 'SignInForm'>;
+type SignInScreenNavigationProp = StackNavigationProp<AuthStackParamList, 'SignIn'>;
 
 export type SignInProps = {
     navigation: SignInScreenNavigationProp;

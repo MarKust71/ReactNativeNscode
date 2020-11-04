@@ -63,15 +63,24 @@ export const Main = () => {
     };
 
     useEffect(() => {
+        /*
         const data = async () => {
             const retrievedData = await retrieveData('toBeConsumed');
             if (retrievedData) {
                 setToBeConsumed(retrievedData);
+                console.log('retrieved:', retrievedData);
             } else {
                 await storeData('toBeConsumed', 3);
             }
         };
         data();
+*/
+        retrieveData('toBeConsumed').then((result) => {
+            if (result) {
+                console.log('result:', result);
+                setToBeConsumed(result);
+            }
+        });
     }, []);
 
     return (

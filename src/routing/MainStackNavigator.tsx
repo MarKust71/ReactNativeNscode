@@ -5,10 +5,12 @@ import { Icon } from 'react-native-elements';
 
 import { Main } from 'app/main/Main';
 import { styles } from 'routing/MainStack.styles';
+import { MainStackParamList } from 'routing/MainStack.types';
+import { MainStackProps as Props } from 'app/main/Main.types';
 
-const MainStack = createStackNavigator();
+const MainStack = createStackNavigator<MainStackParamList>();
 
-export const MainStackNavigator = ({ navigation }) => {
+export const MainStackNavigator = ({ navigation }: Props) => {
     return (
         <MainStack.Navigator>
             <MainStack.Screen
