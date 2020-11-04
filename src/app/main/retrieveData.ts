@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
-export const retrieveData = async () => {
+export const retrieveData = async (key: string) => {
+    console.log('retrieve:', key);
     try {
-        const value = await AsyncStorage.getItem('toBeConsumed');
+        const value = await AsyncStorage.getItem(key);
         if (value !== null) {
             return Number(value);
         } else {

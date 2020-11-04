@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, UIManager, Platform } from 'react-native';
 import Svg, { Defs, LinearGradient as SvgLinearGradient, Rect, Stop, Text as SvgText } from 'react-native-svg';
 
-import { ScreenContainer } from 'ui/common';
+import { CommonSnackbar, ScreenContainer } from 'ui/common';
 import { styles } from 'app/main/Main.styles';
 import { CBButtons } from 'app/main/CBButtons';
 import { buttonsArray } from 'app/main/buttons';
@@ -18,6 +18,12 @@ export const Main = () => {
 
     const [toBeConsumed, setToBeConsumed] = useState(3);
     const [desiredConsumption] = useState(3);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarVisible, setSnackbarVisible] = useState(false);
+
+    const dismissSnackbar = () => {
+        setSnackbarVisible(false);
+    };
 
     const barWidth = 300;
     const fraction = (desiredConsumption - toBeConsumed) / desiredConsumption;
@@ -26,13 +32,17 @@ export const Main = () => {
     const onPressButton = async (consumed: number) => {
         cancelNotifications();
         if (toBeConsumed - consumed > 0) {
-            await storeData(toBeConsumed - consumed);
+            await storeData('toBeConsumed', toBeConsumed - consumed);
             setToBeConsumed(toBeConsumed - consumed);
             setNotification();
+            setSnackbarMessage('You will be notified to drink something within the next 2 hours');
+            setSnackbarVisible(true);
             return;
         }
-        await storeData(0);
+        await storeData('toBeConsumed', 0);
         setToBeConsumed(0);
+        setSnackbarMessage('You achived your daily plan of watering. CONGRATULATIONS!');
+        setSnackbarVisible(true);
     };
 
     const buttons = buttonsArray(onPressButton);
@@ -40,21 +50,25 @@ export const Main = () => {
     const handleLongPress = () => {
         cancelNotifications();
         setToBeConsumed(3);
+        setSnackbarMessage('All notifications cancelled. Tap the bar to set new reminder');
+        setSnackbarVisible(true);
     };
 
     const handlePress = () => {
         if (toBeConsumed === 3) {
             setNotification();
+            setSnackbarMessage('New reminder set. You will be notified to drink something within the next 2 hours');
+            setSnackbarVisible(true);
         }
     };
 
     useEffect(() => {
         const data = async () => {
-            const retrievedData = await retrieveData();
+            const retrievedData = await retrieveData('toBeConsumed');
             if (retrievedData) {
                 setToBeConsumed(retrievedData);
             } else {
-                await storeData(3);
+                await storeData('toBeConsumed', 3);
             }
         };
         data();
@@ -102,6 +116,17 @@ export const Main = () => {
             </View>
             <Text style={styles.resultsQuestion}>How much did you drink?</Text>
             <CBButtons buttons={buttons} />
+            <CommonSnackbar
+                message={snackbarMessage}
+                visible={snackbarVisible}
+                onDismissSnackBar={dismissSnackbar}
+                action={{
+                    label: 'Close',
+                    onPress: () => {
+                        //
+                    },
+                }}
+            />
         </ScreenContainer>
     );
 };

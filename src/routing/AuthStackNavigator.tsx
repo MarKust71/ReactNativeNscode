@@ -18,7 +18,7 @@ export const AuthStackNavigator = () => {
             <AuthStack.Screen
                 name="SignInForm"
                 component={SignInForm}
-                options={{ headerTitleStyle: { alignSelf: 'center' }, title: 'Sign In' }}
+                options={{ headerTitleStyle: { alignSelf: 'center' }, title: 'Sign In', headerRight: () => <></> }}
             />
         </AuthStack.Navigator>
     );

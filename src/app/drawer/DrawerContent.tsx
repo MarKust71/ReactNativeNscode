@@ -13,15 +13,6 @@ export const DrawerContent = ({ navigation }: Props) => {
         <View>
             <Drawer.Section>
                 <Drawer.Item
-                    label="Home"
-                    active={active === 'home'}
-                    onPress={() => {
-                        setActive('home');
-                        navigation.closeDrawer();
-                        navigation.navigate('Home');
-                    }}
-                />
-                <Drawer.Item
                     label="Main"
                     active={active === 'main'}
                     onPress={() => {

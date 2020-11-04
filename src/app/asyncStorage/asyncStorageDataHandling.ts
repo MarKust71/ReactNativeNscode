@@ -15,7 +15,7 @@ export const readAsyncStorageData = async (key: string) => {
     try {
         return await AsyncStorage.getItem(key);
     } catch (error) {
-        // handle errpr
+        // handle error
     }
     return '';
 };

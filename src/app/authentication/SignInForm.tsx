@@ -4,8 +4,9 @@ import { Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
 import { Spinner } from 'ui/common';
-import { createNotificationChannel, MY_NOTIFICATION_CHANNEL } from 'app/notifications/notification.helpers';
+import { createNotificationChannel } from 'app/notifications/notification.helpers';
 import { initializePushNotification } from 'contexts/PushNotification';
+import { MY_NOTIFICATION_CHANNEL } from 'app/config/globals';
 
 import { styles } from './SignInForm.styles';
 

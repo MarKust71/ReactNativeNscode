@@ -1,6 +1,6 @@
 import PushNotification, { PushNotificationScheduleObject } from 'react-native-push-notification';
 
-export const MY_NOTIFICATION_CHANNEL = 'my-notification-channel';
+import { MY_NOTIFICATION_CHANNEL, MY_NOTIFICATION_DELAY } from 'app/config/globals';
 
 const notificationDetails = {
     channelId: MY_NOTIFICATION_CHANNEL,
@@ -31,25 +31,22 @@ export const notify = (message: string) => {
     });
 };
 
-export const cancelNotifications = () => {
+export const cancelNotifications = (message?: string) => {
     PushNotification.cancelAllLocalNotifications();
-    notify('all notifications cancelled');
+    if (message) {
+        notify(message);
+    }
     // console.log('notifications cancelled');
 };
 
 export const setNotification = () => {
-    const date = new Date(Date.now() + 1000 * 60);
-    // const date = new Date(Date.now() + 1000 * 60 * 60 * 2),
+    const date = new Date(Date.now() + MY_NOTIFICATION_DELAY);
     const details: PushNotificationScheduleObject = {
         ...notificationDetails,
-        message: "probably you haven't noticed you haven't drunk anything for the last two hours!",
+        message: 'It is time for drink!',
         date,
         autoCancel: false,
     };
 
     PushNotification.localNotificationSchedule(details);
-
-    notify("You're gonna be notified to drink something within the next 2 hours");
-    notify(`new reminder set on ${date.toString()}`);
-    // console.log('notification set/renewed');
 };
