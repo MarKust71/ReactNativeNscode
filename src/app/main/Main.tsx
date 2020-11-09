@@ -29,29 +29,46 @@ export const Main = () => {
     const fraction = (desiredConsumption - toBeConsumed) / desiredConsumption;
     const consumedFraction = barWidth * fraction;
 
-    const onPressButton = async (consumed: number) => {
+    const onPressButton = (consumed: number) => {
         cancelNotifications();
         if (toBeConsumed - consumed > 0) {
-            await storeData('toBeConsumed', toBeConsumed - consumed);
-            setToBeConsumed(toBeConsumed - consumed);
-            setNotification();
-            setSnackbarMessage('You will be notified to drink something within the next 2 hours');
-            setSnackbarVisible(true);
-            return;
+            storeData('toBeConsumed', toBeConsumed - consumed)
+                .then(() => {
+                    setToBeConsumed(toBeConsumed - consumed);
+                    setNotification();
+                    setSnackbarMessage('You will be notified to drink something within the next 2 hours');
+                    setSnackbarVisible(true);
+                    return;
+                })
+                .catch(() => {
+                    // handle error
+                });
+        } else {
+            storeData('toBeConsumed', 0)
+                .then(() => {
+                    setToBeConsumed(0);
+                    setSnackbarMessage('You achived your daily plan of watering. CONGRATULATIONS!');
+                    setSnackbarVisible(true);
+                })
+                .catch(() => {
+                    // handle error
+                });
         }
-        await storeData('toBeConsumed', 0);
-        setToBeConsumed(0);
-        setSnackbarMessage('You achived your daily plan of watering. CONGRATULATIONS!');
-        setSnackbarVisible(true);
     };
 
     const buttons = buttonsArray(onPressButton);
 
     const handleLongPress = () => {
-        cancelNotifications();
-        setToBeConsumed(3);
-        setSnackbarMessage('All notifications cancelled. Tap the bar to set new reminder');
-        setSnackbarVisible(true);
+        storeData('toBeConsumed', 3)
+            .then(() => {
+                cancelNotifications();
+                setToBeConsumed(3);
+                setSnackbarMessage('All notifications cancelled. Tap the bar to set new reminder');
+                setSnackbarVisible(true);
+            })
+            .catch(() => {
+                // handle error
+            });
     };
 
     const handlePress = () => {
