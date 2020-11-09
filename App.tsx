@@ -3,11 +3,13 @@ import firebase from 'firebase';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as PaperProvider } from 'react-native-paper';
 
-import { readAsyncStorageData, storeAsyncStorageData } from 'app/asyncStorage/asyncStorageDataHandling';
 import { Splash } from 'ui/common';
 import { AuthContext } from 'contexts/AuthContext';
 import { AuthStackNavigator } from 'routing/AuthStackNavigator';
 import { DrawerNavigator } from 'routing/DrawerNavigator';
+// import { readAsyncStorageData, storeAsyncStorageData } from 'helpers/asyncStorageDataHandler';
+
+import { readAsyncStorageData, storeAsyncStorageData } from './src/helpers/asyncStorageDataHandler';
 
 export const App = () => {
     const [isLoading, setIsLoading] = useState(false);

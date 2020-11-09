@@ -38,7 +38,6 @@ export const Main = () => {
                     setNotification();
                     setSnackbarMessage('You will be notified to drink something within the next 2 hours');
                     setSnackbarVisible(true);
-                    return;
                 })
                 .catch(() => {
                     // handle error

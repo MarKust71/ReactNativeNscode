@@ -2,7 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 
 import { SignIn } from 'app/authentication/SignIn';
-import { SignInForm } from 'app/authentication/SignInForm';
+import { SignInFormContainer } from 'app/authentication/SignInFormContainer';
 import { AuthStackParamList } from 'routing/AuthStack.types';
 
 const AuthStack = createStackNavigator<AuthStackParamList>();
@@ -17,7 +17,7 @@ export const AuthStackNavigator = () => {
             />
             <AuthStack.Screen
                 name="SignInForm"
-                component={SignInForm}
+                component={SignInFormContainer}
                 options={{ headerTitleStyle: { alignSelf: 'center' }, title: 'Sign In', headerRight: () => <></> }}
             />
         </AuthStack.Navigator>

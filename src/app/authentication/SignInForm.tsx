@@ -1,50 +1,23 @@
-import React, { useState } from 'react';
-import firebase from 'firebase';
+import React from 'react';
 import { Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
+import { styles } from 'app/authentication/SignInForm.styles';
+import { SignInFormProps as Props } from 'app/authentication/SignInForm.types';
 import { Spinner } from 'ui/common';
-import { createNotificationChannel } from 'app/notifications/notification.helpers';
-import { initializePushNotification } from 'contexts/PushNotification';
-import { MY_NOTIFICATION_CHANNEL } from 'app/config/globals';
 
-import { styles } from './SignInForm.styles';
+export const SignInForm = (props: Props) => {
+    const {
+        loading,
+        email,
+        password,
+        errorMessage,
+        handlePress,
+        handleChangeTextEmail,
+        handleChangeTextPassword,
+    } = props;
 
-export const SignInForm = () => {
-    const [email, setEmail] = useState('test@test.pl');
-    const [password, setPassword] = useState('testtest');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [loading, setLoading] = useState(false);
-
-    const onLoginSuccess = () => {
-        setLoading(false);
-        setEmail('');
-        setPassword('');
-        initializePushNotification();
-        createNotificationChannel(MY_NOTIFICATION_CHANNEL);
-    };
-
-    const onLoginFail = (reason: any) => {
-        setLoading(false);
-        setErrorMessage('Authentication Failed!');
-        console.log('Reason:', reason.message);
-    };
-
-    const handlePress = () => {
-        setLoading(true);
-        setErrorMessage('');
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password)
-            .then(() => {
-                onLoginSuccess();
-            })
-            .catch((reason) => {
-                onLoginFail(reason);
-            });
-    };
-
-    const renderButton = () => {
+    const renderButton = (loading: boolean) => {
         if (loading) {
             return <Spinner size={'small'} />;
         }
@@ -56,16 +29,13 @@ export const SignInForm = () => {
     };
 
     return (
-        <View style={{ flex: 1, justifyContent: 'center' }}>
+        <View style={styles.container}>
             <TextInput
                 style={styles.textInput}
                 mode="outlined"
                 label="E-mail"
                 value={email}
-                onChangeText={(value) => {
-                    setErrorMessage('');
-                    setEmail(value);
-                }}
+                onChangeText={handleChangeTextEmail}
             />
             <TextInput
                 style={styles.textInput}
@@ -73,13 +43,10 @@ export const SignInForm = () => {
                 label="Password"
                 value={password}
                 secureTextEntry={true}
-                onChangeText={(value) => {
-                    setErrorMessage('');
-                    setPassword(value);
-                }}
+                onChangeText={handleChangeTextPassword}
             />
             <Text style={styles.errorMessage}>{errorMessage}</Text>
-            <View>{renderButton()}</View>
+            <View>{renderButton(loading)}</View>
         </View>
     );
 };
