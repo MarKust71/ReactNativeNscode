@@ -7,9 +7,7 @@ import { Splash } from 'ui/common';
 import { AuthContext } from 'contexts/AuthContext';
 import { AuthStackNavigator } from 'routing/AuthStackNavigator';
 import { DrawerNavigator } from 'routing/DrawerNavigator';
-// import { readAsyncStorageData, storeAsyncStorageData } from 'helpers/asyncStorageDataHandler';
-
-import { readAsyncStorageData, storeAsyncStorageData } from './src/helpers/asyncStorageDataHandler';
+import { readAsyncStorageData, storeAsyncStorageData } from 'helpers/asyncStorageDataHandler';
 
 export const App = () => {
     const [isLoading, setIsLoading] = useState(false);

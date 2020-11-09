@@ -4,8 +4,7 @@ import firebase from 'firebase';
 import { createNotificationChannel } from 'app/notifications/notification.helpers';
 import { MY_NOTIFICATION_CHANNEL } from 'app/config/globals';
 import { SignInForm } from 'app/authentication/SignInForm';
-// import { initializePushNotification } from 'helpers/PushNotification';
-import { initializePushNotification } from '../../helpers/PushNotification';
+import { initializePushNotification } from 'helpers/PushNotification';
 
 import { SignInFormProps as Props } from './SignInForm.types';
 
